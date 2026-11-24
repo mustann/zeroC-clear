@@ -51,13 +51,13 @@ st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap');
 :root{
-  --ash-0:#0b0c0e; --ash-1:#101114;
-  --glass:rgba(255,255,255,.055); --glass-2:rgba(255,255,255,.085); --glass-line:rgba(255,255,255,.12);
-  --glass-hi:rgba(255,255,255,.22);
+  --ash-0:#04060c; --ash-1:#060914;
+  --glass:rgba(160,190,255,.04); --glass-2:rgba(190,210,255,.10); --glass-line:rgba(255,255,255,.16);
+  --glass-hi:rgba(255,255,255,.34);
   --ink:#eceae6; --ink-2:#c0c3ca; --ink-3:#7c7f87;
-  --accent:#9aa8ff; --accent-2:#c39bff; --accent-dim:rgba(154,168,255,.16);
-  --red:#ff6b57; --amber:#f5b942; --green:#5fd08a;
-  --blur: blur(18px) saturate(150%);
+  --accent:#5b8cff; --accent-2:#ff9a4d; --accent-dim:rgba(61,123,255,.18);
+  --red:#ff5468; --amber:#ffd23f; --green:#3fd9a8;
+  --blur: blur(30px) saturate(190%);
 }
 html, body, .stApp, .stMarkdown, p, label, input, textarea, button, [data-baseweb] { font-family:'Figtree',system-ui,sans-serif; }
 span[data-testid="stIconMaterial"], .material-icons, [class*="material-symbols"] { font-family:'Material Symbols Rounded' !important; }
@@ -65,41 +65,41 @@ span[data-testid="stIconMaterial"], .material-icons, [class*="material-symbols"]
 /* Gradient mesh backdrop: the glass needs something colourful to blur */
 .stApp { background: var(--ash-1); }
 .stApp::before { content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
-  background:
-    radial-gradient(620px 520px at 8% 6%, rgba(122,140,255,.50), transparent 62%),
-    radial-gradient(560px 480px at 92% 14%, rgba(195,155,255,.36), transparent 62%),
-    radial-gradient(640px 560px at 78% 96%, rgba(255,107,87,.30), transparent 62%),
-    radial-gradient(520px 460px at 22% 88%, rgba(70,200,215,.26), transparent 62%); }
+  background: linear-gradient(155deg, rgba(36,92,255,.62) 0%, rgba(26,58,190,.34) 28%, rgba(10,18,60,.12) 52%, rgba(120,70,40,.14) 72%, rgba(255,140,60,.46) 100%); }
 [data-testid="stAppViewContainer"], [data-testid="stHeader"] { background:transparent; position:relative; z-index:1; }
 .block-container { padding-top:4rem; max-width:1400px; position:relative; z-index:1; }
 
 h1, h2, h3 { font-family:'Bricolage Grotesque','Figtree',sans-serif; letter-spacing:-0.02em; color:var(--ink); font-weight:700; }
-h1 { font-size:2.15rem !important; background:linear-gradient(100deg,#fff 20%,var(--accent) 90%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+h1 { font-size:2.15rem !important; background:linear-gradient(100deg,#fff 15%,#8fb0ff 55%,#ffb27a 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
 [data-testid="stCaptionContainer"], .stCaption { color:var(--ink-2); }
 section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] { color:var(--ink-2); }
 hr { border-color: var(--glass-line) !important; }
 
 /* Shared glass surface */
-.zc-head, .zc-alert, .box, div[data-testid="stMetric"], [data-testid="stDataFrame"], [data-testid="stPlotlyChart"], [data-testid="stExpander"] {
-  background:linear-gradient(145deg,var(--glass-2),var(--glass)); backdrop-filter:var(--blur); -webkit-backdrop-filter:var(--blur);
-  border:1px solid var(--glass-line); border-radius:16px;
-  box-shadow: inset 0 1px 0 var(--glass-hi), 0 10px 30px rgba(0,0,0,.28); }
+.zc-head, .zc-alert, .box, div[data-testid="stMetric"], [data-testid="stDataFrame"], [data-testid="stPlotlyChart"], [data-testid="stExpander"], [data-testid="stAlert"] {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,.04) 32%, rgba(255,255,255,.02) 62%, rgba(255,255,255,.09) 100%),
+    var(--glass);
+  backdrop-filter:var(--blur); -webkit-backdrop-filter:var(--blur);
+  border:1px solid var(--glass-line); border-radius:18px;
+  box-shadow: inset 0 1px 0 var(--glass-hi), inset 0 -1px 0 rgba(255,255,255,.05), inset 1px 0 0 rgba(255,255,255,.06),
+              0 14px 40px rgba(0,0,0,.38), 0 2px 8px rgba(0,0,0,.25); }
 
 /* Header */
 .zc-head { display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; padding:14px 22px; margin-bottom:18px; }
 .zc-brand { display:flex; align-items:center; gap:14px; }
-.zc-mark { width:34px; height:34px; flex:none; filter:drop-shadow(0 0 8px rgba(154,168,255,.55)); }
+.zc-mark { width:34px; height:34px; flex:none; filter:drop-shadow(0 0 8px rgba(61,123,255,.7)); }
 .zc-brand b { font-family:'Bricolage Grotesque',sans-serif; font-size:1.25rem; letter-spacing:-0.01em; color:var(--ink); }
 .zc-brand span { color:var(--ink-2); font-size:.95rem; }
-.zc-tag { color:#fff; background:linear-gradient(120deg,rgba(154,168,255,.35),rgba(195,155,255,.28)); border:1px solid var(--glass-hi);
+.zc-tag { color:#fff; background:linear-gradient(120deg,rgba(61,123,255,.45),rgba(255,154,77,.30)); border:1px solid var(--glass-hi);
   padding:5px 13px; border-radius:999px; font-size:.78rem; font-weight:600; backdrop-filter:blur(8px); }
 
 /* Alerts, notes */
-.zc-alert { padding:13px 18px; margin-bottom:10px; color:var(--ink); }
+.zc-alert { border-left:3px solid rgba(91,140,255,.9); padding:13px 18px; margin-bottom:10px; color:var(--ink); }
 .tag { display:inline-block; padding:2px 10px; border-radius:999px; font-weight:700; font-size:12px; margin-right:6px; color:#14100a; box-shadow:0 0 14px rgba(255,255,255,.12); }
-.HIGH, .RED { background:linear-gradient(120deg,#ff8a6b,var(--red)); }
-.WATCH, .AMBER { background:linear-gradient(120deg,#ffd36b,var(--amber)); }
-.LOW, .GREEN { background:linear-gradient(120deg,#8be6aa,var(--green)); }
+.HIGH, .RED { background:linear-gradient(120deg,#ff8aa0,var(--red)); }
+.WATCH, .AMBER { background:linear-gradient(120deg,#ffe58a,var(--amber)); }
+.LOW, .GREEN { background:linear-gradient(120deg,#8cf0cd,var(--green)); }
 .box { padding:15px 20px; margin:12px 0; color:var(--ink-2); line-height:1.55; }
 .box b { color:var(--ink); }
 
@@ -111,33 +111,32 @@ div[data-testid="stMetricValue"] { font-family:'Bricolage Grotesque',sans-serif;
 div[data-testid="stMetricLabel"] p { color:var(--ink-2); }
 
 /* Sidebar */
-section[data-testid="stSidebar"] { background:rgba(12,13,16,.55); backdrop-filter:blur(22px) saturate(140%); -webkit-backdrop-filter:blur(22px) saturate(140%); border-right:1px solid var(--glass-line); }
+section[data-testid="stSidebar"] { background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.015) 40%,rgba(255,255,255,.05)),rgba(4,6,16,.62); backdrop-filter:blur(34px) saturate(190%); -webkit-backdrop-filter:blur(34px) saturate(190%); border-right:1px solid var(--glass-line); }
 section[data-testid="stSidebar"] > div { background:transparent; }
 section[data-testid="stSidebar"] * { color:var(--ink-2); }
 section[data-testid="stSidebar"] h2 { color:var(--ink); }
 section[data-testid="stSidebar"] [role="radiogroup"] { gap:3px; }
 section[data-testid="stSidebar"] [role="radiogroup"] label { padding:8px 12px; border-radius:11px; width:100%; border:1px solid transparent; transition:background .15s, border-color .15s; }
-section[data-testid="stSidebar"] [role="radiogroup"] label:hover { background:var(--glass); }
-section[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) { background:linear-gradient(120deg,rgba(154,168,255,.26),rgba(195,155,255,.14)); border-color:var(--glass-hi); box-shadow:inset 0 1px 0 var(--glass-hi); }
+section[data-testid="stSidebar"] [role="radiogroup"] label:hover { background:rgba(255,255,255,.07); border-color:var(--glass-line); }
+section[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) { background:linear-gradient(120deg,rgba(61,123,255,.34),rgba(255,154,77,.12)); border-color:var(--glass-hi); box-shadow:inset 0 1px 0 var(--glass-hi); }
 section[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) * { color:#fff; font-weight:600; }
 
 /* Inputs & buttons */
-.stButton > button { border-radius:11px; border:1px solid var(--glass-line); background:linear-gradient(145deg,var(--glass-2),var(--glass)); backdrop-filter:blur(10px); color:var(--ink); box-shadow:inset 0 1px 0 var(--glass-hi); transition:border-color .15s, transform .15s; }
+.stButton > button, .stDownloadButton > button { border-radius:12px; border:1px solid var(--glass-line); background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.04)); backdrop-filter:blur(16px) saturate(180%); color:var(--ink); box-shadow:inset 0 1px 0 var(--glass-hi); transition:border-color .15s, transform .15s; }
 .stButton > button:hover { border-color:var(--accent); color:#fff; }
 .stButton > button:active { transform:translateY(1px); }
-.stButton > button[kind="primary"] { background:linear-gradient(120deg,#8091ff,#b48cff); color:#0c0d14; border-color:rgba(255,255,255,.35); font-weight:600; box-shadow:inset 0 1px 0 rgba(255,255,255,.45), 0 6px 20px rgba(128,145,255,.35); }
-.stButton > button[kind="primary"]:hover { color:#0c0d14; filter:brightness(1.08); }
+.stButton > button[kind="primary"] { background:linear-gradient(120deg,#2f6bff,#ff9a4d); color:#fff; border-color:rgba(255,255,255,.35); font-weight:600; box-shadow:inset 0 1px 0 rgba(255,255,255,.45), 0 6px 22px rgba(47,107,255,.40); }
+.stButton > button[kind="primary"]:hover { color:#fff; filter:brightness(1.08); }
 .stButton > button:focus-visible, input:focus-visible, textarea:focus-visible { outline:2px solid var(--accent) !important; outline-offset:2px; }
-[data-baseweb="select"] > div, [data-baseweb="input"] > div, textarea { background:rgba(255,255,255,.06) !important; border-color:var(--glass-line) !important; backdrop-filter:blur(8px); }
+[data-baseweb="select"] > div, [data-baseweb="input"] > div, textarea { background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.03)) !important; border-color:var(--glass-line) !important; border-radius:12px !important; backdrop-filter:blur(16px) saturate(180%); box-shadow:inset 0 1px 0 rgba(255,255,255,.18); }
 [data-testid="stDataFrame"], [data-testid="stPlotlyChart"] { overflow:hidden; }
 [data-testid="stTabs"] button[aria-selected="true"] { color:var(--accent); }
-[data-testid="stAlert"] { background:var(--glass); border:1px solid var(--glass-line); border-radius:14px; backdrop-filter:var(--blur); }
 @media (prefers-reduced-motion: reduce){ * { transition:none !important; } }
 </style>
 """, unsafe_allow_html=True)
 
 # ── Plotly styling helper ────────────────────────────────────────────
-ASH_SEQ = ["#9aa8ff", "#ff6b57", "#f5b942", "#5fd08a", "#5cc8d7", "#c792ea", "#e7e5e0", "#74777e"]
+ASH_SEQ = ["#3d7bff", "#ff9a4d", "#6fc3ff", "#ffd23f", "#3fd9a8", "#b48cff", "#e7ecf8", "#6b7690"]
 
 def fig_style(fig, height=360):
     fig.update_layout(
@@ -147,7 +146,7 @@ def fig_style(fig, height=360):
         plot_bgcolor="rgba(0,0,0,0)",
         margin=dict(l=15, r=15, t=48, b=15),
         font=dict(family="Figtree, system-ui, sans-serif", size=12, color="#a9abb1"),
-        title=dict(font=dict(family="Bricolage Grotesque, Figtree, sans-serif", size=15, color="#e7e5e0")),
+        title=dict(font=dict(family="Bricolage Grotesque, Figtree, sans-serif", size=15, color="#e7ecf8")),
         colorway=ASH_SEQ,
         legend=dict(orientation="h", y=-0.2),
     )
@@ -235,8 +234,8 @@ st.markdown(f"""
 <div class="zc-head">
     <div class="zc-brand">
         <svg class="zc-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-            <circle cx="20" cy="20" r="15" stroke="#8b9cff" stroke-width="4" stroke-dasharray="78 16" stroke-linecap="round" transform="rotate(-60 20 20)"/>
-            <circle cx="20" cy="20" r="3.5" fill="#ff6b57"/>
+            <circle cx="20" cy="20" r="15" stroke="#3d7bff" stroke-width="4" stroke-dasharray="78 16" stroke-linecap="round" transform="rotate(-60 20 20)"/>
+            <circle cx="20" cy="20" r="3.5" fill="#ff9a4d"/>
         </svg>
         <div><b>ZeroC-AI</b> &nbsp;<span>Zero Customer Complaint Command Centre</span></div>
     </div>
@@ -304,8 +303,8 @@ if page == "Command Centre":
         # Pareto vital few
         par = A.pareto(f)
         fig_par = go.Figure([
-            go.Bar(x=par.category, y=par.n, marker_color=np.where(par.vital_few, "#ff6b57", "#4a4d55"), name="Complaints"),
-            go.Scatter(x=par.category, y=par.cum_pct, yaxis="y2", mode="lines+markers", line_color="#e7e5e0", name="Cumulative %")
+            go.Bar(x=par.category, y=par.n, marker_color=np.where(par.vital_few, "#ff5468", "#3a4766"), name="Complaints"),
+            go.Scatter(x=par.category, y=par.cum_pct, yaxis="y2", mode="lines+markers", line_color="#e7ecf8", name="Cumulative %")
         ])
         fig_par.update_layout(
             title="Pareto: Complaint Category (Last 36 Months) — Orange/Red = Vital Few",
@@ -315,16 +314,16 @@ if page == "Command Centre":
 
         # 19-year history
         yr_df = f.groupby("yr").size().reset_index(name="n")
-        fig_yr = px.bar(yr_df, x="yr", y="n", title="19-Year Complaint History", color_discrete_sequence=["#8b9cff"])
+        fig_yr = px.bar(yr_df, x="yr", y="n", title="19-Year Complaint History", color_discrete_sequence=["#3d7bff"])
         st.plotly_chart(fig_style(fig_yr, 280), use_container_width=True)
 
     with right_col:
         # SPC Early Warning chart
         fig_spc = go.Figure([
-            go.Scatter(x=s.index, y=s["count"], mode="lines+markers", line_color="#8b9cff", name="Monthly Count"),
-            go.Scatter(x=s.index, y=s.ucl, line=dict(color="#ff6b57", dash="dash"), name="UCL (3σ)"),
+            go.Scatter(x=s.index, y=s["count"], mode="lines+markers", line_color="#3d7bff", name="Monthly Count"),
+            go.Scatter(x=s.index, y=s.ucl, line=dict(color="#ff5468", dash="dash"), name="UCL (3σ)"),
             go.Scatter(x=s.index, y=s["mean"], line=dict(color="#74777e", dash="dot"), name="Historical Mean"),
-            go.Scatter(x=s.index[s.signal], y=s["count"][s.signal], mode="markers", marker=dict(color="#ff6b57", size=11, symbol="x"), name="Out of Control Signal")
+            go.Scatter(x=s.index[s.signal], y=s["count"][s.signal], mode="markers", marker=dict(color="#ff5468", size=11, symbol="x"), name="Out of Control Signal")
         ])
         fig_spc.update_layout(title="Monthly Complaints SPC Early Warning (c-chart + 7-run + CUSUM)")
         st.plotly_chart(fig_style(fig_spc, 340), use_container_width=True)
@@ -332,7 +331,7 @@ if page == "Command Centre":
         # Risk Heat-Map Matrix
         if not preds.empty and "p30" in preds.columns:
             pv = preds.pivot(index="product", columns="category", values="p30").reindex(index=PRODUCTS, columns=CATEGORIES).fillna(0)
-            fig_hm = px.imshow(pv, text_auto=".0%", color_continuous_scale=["#2b2d34", "#f5b942", "#ff6b57"], aspect="auto", zmin=0, zmax=0.8, title="Risk Heat-Map · Next 30 Days P(complaint)")
+            fig_hm = px.imshow(pv, text_auto=".0%", color_continuous_scale=["#101a33", "#ff9a4d", "#ff5468"], aspect="auto", zmin=0, zmax=0.8, title="Risk Heat-Map · Next 30 Days P(complaint)")
             st.plotly_chart(fig_style(fig_hm, 280), use_container_width=True)
 
     # Entity Risk League
@@ -341,7 +340,7 @@ if page == "Command Centre":
     for col, by, lbl in [(c_a, "product", "Product"), (c_b, "customer", "Customer"), (c_c, "line", "Line")]:
         if by in f.columns:
             r = A.entity_risk(f.dropna(subset=[by]), by)
-            fg = px.bar(r, x="risk_score", y="entity", orientation="h", color="tier", color_discrete_map={"RED": "#ff6b57", "AMBER": "#f5b942", "GREEN": "#5fd08a"}, title=f"{lbl} Risk (Frequency × Severity × Recency × Trend)", height=280)
+            fg = px.bar(r, x="risk_score", y="entity", orientation="h", color="tier", color_discrete_map={"RED": "#ff5468", "AMBER": "#ff9a4d", "GREEN": "#3fd9a8"}, title=f"{lbl} Risk (Frequency × Severity × Recency × Trend)", height=280)
             fg.update_layout(yaxis=dict(autorange="reversed", title=""), showlegend=False)
             col.plotly_chart(fig_style(fg, 280), use_container_width=True)
 
@@ -392,7 +391,7 @@ elif page == "Classify & Log":
             st.markdown(f"Confidence: **{r.confidence:.0%}** — " + (
                 "*Low confidence (<50%) — flagged for human review!*" if r.confidence < LOW_CONF else "*High confidence auto-classified*"
             ))
-            fig_conf = px.bar(pr[::-1], orientation="h", color_discrete_sequence=["#8b9cff"], height=200)
+            fig_conf = px.bar(pr[::-1], orientation="h", color_discrete_sequence=["#3d7bff"], height=200)
             fig_conf.update_layout(xaxis_title="Probability", yaxis_title="", margin=dict(t=5, b=5, l=10, r=10))
             st.plotly_chart(fig_conf, use_container_width=True)
 
@@ -505,10 +504,10 @@ elif page == "Patterns & Root Cause":
         h_series.index = h_series.index.to_timestamp()
 
         fig_chron = go.Figure()
-        fig_chron.add_bar(x=h_series.index, y=h_series.values, name="Complaints", marker_color="#ff6b57")
+        fig_chron.add_bar(x=h_series.index, y=h_series.values, name="Complaints", marker_color="#ff5468")
         eff_cases = sub_m[sub_m.effective == 1]
         if not eff_cases.empty:
-            fig_chron.add_scatter(x=eff_cases["complaint_date"], y=[0] * len(eff_cases), mode="markers", marker=dict(color="#5fd08a", size=8, symbol="triangle-up"), name="Action Marked Effective")
+            fig_chron.add_scatter(x=eff_cases["complaint_date"], y=[0] * len(eff_cases), mode="markers", marker=dict(color="#3fd9a8", size=8, symbol="triangle-up"), name="Action Marked Effective")
         fig_chron.update_layout(title=f"{sel_p} · {sel_c}: Historical Timeline")
         st.plotly_chart(fig_style(fig_chron, 320), use_container_width=True)
 
@@ -519,7 +518,7 @@ elif page == "Patterns & Root Cause":
             sp_rc = st.selectbox("Filter Product", ["All"] + PRODUCTS, index=0, key="rc_p")
             sc_rc = st.selectbox("Filter Category", ["All"] + CATEGORIES, index=0, key="rc_c")
             r6_data, rc_top = A.root_cause(m, sp_rc, sc_rc)
-            fig_6m = px.bar(r6_data, x="6M", y="n", color_discrete_sequence=["#8b9cff"], title="Complaints by 6M Root Cause")
+            fig_6m = px.bar(r6_data, x="6M", y="n", color_discrete_sequence=["#3d7bff"], title="Complaints by 6M Root Cause")
             st.plotly_chart(fig_style(fig_6m, 280), use_container_width=True)
             st.markdown("**Top Reported Specific Causes:**")
             st.dataframe(rc_top, hide_index=True, use_container_width=True)
@@ -529,7 +528,7 @@ elif page == "Patterns & Root Cause":
             lift_dim = st.radio("Entity Dimension", ["product", "customer", "line"], horizontal=True, format_func=lambda x: x.title())
             lift_df, ct_df = A.lift_matrix(m, lift_dim)
             if not lift_df.empty:
-                fig_lift = px.imshow(lift_df, text_auto=True, color_continuous_scale=["#2b2d34", "#f5b942", "#ff6b57"], zmin=0, zmax=3.0, aspect="auto", title=f"Lift Matrix ({lift_dim.title()} × Category) — 1.0 = Average")
+                fig_lift = px.imshow(lift_df, text_auto=True, color_continuous_scale=["#101a33", "#ff9a4d", "#ff5468"], zmin=0, zmax=3.0, aspect="auto", title=f"Lift Matrix ({lift_dim.title()} × Category) — 1.0 = Average")
                 st.plotly_chart(fig_style(fig_lift, 380), use_container_width=True)
 
         st.markdown("---")
@@ -546,7 +545,7 @@ elif page == "Patterns & Root Cause":
             # Merge with complaint category where available
             b_merged = m.dropna(subset=["batch_id"]).merge(b, on="batch_id", how="inner")
             if not b_merged.empty and proc_var in b_merged.columns:
-                fig_box = px.box(b_merged, x="category", y=proc_var, color_discrete_sequence=["#ff6b57"], title=f"Distribution of {PROCESS_LABELS.get(proc_var, proc_var)} on Complaint Batches")
+                fig_box = px.box(b_merged, x="category", y=proc_var, color_discrete_sequence=["#ff5468"], title=f"Distribution of {PROCESS_LABELS.get(proc_var, proc_var)} on Complaint Batches")
                 st.plotly_chart(fig_style(fig_box, 340), use_container_width=True)
             else:
                 st.info("No batches linked to complaints with this reading.")
@@ -579,8 +578,8 @@ elif page == "Pareto & History":
     c1, c2 = st.columns([1.5, 1])
     with c1:
         fig_p = go.Figure([
-            go.Bar(x=p_data.index.astype(str), y=p_data["n"], marker_color=[("#ff6b57" if v else "#4a4d55") for v in p_data["vital_few"]], name="Complaints"),
-            go.Scatter(x=p_data.index.astype(str), y=p_data["cum_pct"], yaxis="y2", mode="lines+markers", line_color="#e7e5e0", name="Cumulative %")
+            go.Bar(x=p_data.index.astype(str), y=p_data["n"], marker_color=[("#ff5468" if v else "#3a4766") for v in p_data["vital_few"]], name="Complaints"),
+            go.Scatter(x=p_data.index.astype(str), y=p_data["cum_pct"], yaxis="y2", mode="lines+markers", line_color="#e7ecf8", name="Cumulative %")
         ])
         fig_p.add_hline(y=80, line_dash="dot", line_color="#74777e", yref="y2", annotation_text="80% Cutoff")
         fig_p.update_layout(
@@ -614,7 +613,7 @@ elif page == "Risk & Prediction":
     col_h1, col_h2 = st.columns([1.3, 1])
     with col_h1:
         pv_risk = preds.pivot(index="product", columns="category", values=horizon).reindex(index=PRODUCTS, columns=CATEGORIES).fillna(0)
-        fig_rhm = px.imshow(pv_risk, text_auto=".0%", color_continuous_scale=["#2b2d34", "#f5b942", "#ff6b57"], zmin=0, zmax=0.8, aspect="auto", title=f"Calibrated P(complaint) Heat-Map ({horizon})")
+        fig_rhm = px.imshow(pv_risk, text_auto=".0%", color_continuous_scale=["#101a33", "#ff9a4d", "#ff5468"], zmin=0, zmax=0.8, aspect="auto", title=f"Calibrated P(complaint) Heat-Map ({horizon})")
         st.plotly_chart(fig_style(fig_rhm, 380), use_container_width=True)
 
     with col_h2:
@@ -628,7 +627,7 @@ elif page == "Risk & Prediction":
         cal_df = A.calibration_data(bt)
         if not cal_df.empty:
             fig_cal = go.Figure()
-            fig_cal.add_scatter(x=cal_df["pred"], y=cal_df["actual"], mode="lines+markers", line_color="#ff6b57", name="Model")
+            fig_cal.add_scatter(x=cal_df["pred"], y=cal_df["actual"], mode="lines+markers", line_color="#ff5468", name="Model")
             fig_cal.add_scatter(x=[0, 0.7], y=[0, 0.7], line=dict(color="#74777e", dash="dot"), name="Ideal Calibration")
             fig_cal.update_layout(xaxis_title="Predicted Risk", yaxis_title="Actual Frequency", margin=dict(t=20, b=20, l=10, r=10), height=220)
             st.plotly_chart(fig_cal, use_container_width=True)
@@ -645,7 +644,7 @@ elif page == "Risk & Prediction":
     fig_shap = px.bar(
         sh_data[::-1], x="shap", y="driver", orientation="h",
         color=sh_data[::-1].shap > 0,
-        color_discrete_map={True: "#ff6b57", False: "#5fd08a"},
+        color_discrete_map={True: "#ff5468", False: "#3fd9a8"},
         title=f"Drivers of 30-Day Risk: {sel_sp} · {sel_sc} (Red = Raises Risk, Green = Lowers Risk)"
     )
     fig_shap.update_layout(showlegend=False, yaxis_title="")
@@ -683,7 +682,7 @@ elif page == "Risk & Prediction":
     """, unsafe_allow_html=True)
 
     t_top4 = sc_batch.head(4)
-    fig_batch = px.bar(t_top4[::-1], orientation="h", color_discrete_sequence=["#ff6b57"], height=220, title="Per-Category Risk for this Batch")
+    fig_batch = px.bar(t_top4[::-1], orientation="h", color_discrete_sequence=["#ff5468"], height=220, title="Per-Category Risk for this Batch")
     st.plotly_chart(fig_style(fig_batch, 220), use_container_width=True)
 
 
@@ -775,7 +774,7 @@ elif page == "KPIs: Road to Zero":
         cur_monthly_rate = len(A.last(m, 12)) / 12
         months_x = list(range(0, 37))
         fig_glide = go.Figure([
-            go.Scatter(x=months_x, y=[max(0.0, cur_monthly_rate * (1 - i / 36)) for i in months_x], line=dict(color="#8b9cff", dash="dash", width=2), name="Glide Path to Zero")
+            go.Scatter(x=months_x, y=[max(0.0, cur_monthly_rate * (1 - i / 36)) for i in months_x], line=dict(color="#3d7bff", dash="dash", width=2), name="Glide Path to Zero")
         ])
         fig_glide.add_hline(y=cur_monthly_rate, line_dash="dot", annotation_text=f"Current Run-Rate: {cur_monthly_rate:.1f}/mo")
         fig_glide.update_layout(title="36-Month Glide Path to Zero Complaints", xaxis_title="Months from Now", yaxis_title="Monthly Complaints")
@@ -785,7 +784,7 @@ elif page == "KPIs: Road to Zero":
         # Longest complaint-free streaks
         streak_s = A.streaks(m).head(15).rename("months").to_frame().reset_index()
         streak_s.columns = ["Pair", "Months Free"]
-        fig_streak = px.bar(streak_s.iloc[::-1], x="Months Free", y="Pair", orientation="h", color_discrete_sequence=["#5fd08a"], title="Longest Complaint-Free Streaks (Product × Category)")
+        fig_streak = px.bar(streak_s.iloc[::-1], x="Months Free", y="Pair", orientation="h", color_discrete_sequence=["#3fd9a8"], title="Longest Complaint-Free Streaks (Product × Category)")
         st.plotly_chart(fig_style(fig_streak, 320), use_container_width=True)
 
     st.markdown("""
