@@ -51,87 +51,108 @@ st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap');
 :root{
-  --ash-0:#0e0f10; --ash-1:#131416; --ash-2:#1a1b1e; --ash-3:#222327; --line:#2c2e33;
-  --ink:#e7e5e0; --ink-2:#a9abb1; --ink-3:#74777e;
-  --accent:#8b9cff; --accent-dim:rgba(139,156,255,.14);
+  --ash-0:#0b0c0e; --ash-1:#101114;
+  --glass:rgba(255,255,255,.055); --glass-2:rgba(255,255,255,.085); --glass-line:rgba(255,255,255,.12);
+  --glass-hi:rgba(255,255,255,.22);
+  --ink:#eceae6; --ink-2:#c0c3ca; --ink-3:#7c7f87;
+  --accent:#9aa8ff; --accent-2:#c39bff; --accent-dim:rgba(154,168,255,.16);
   --red:#ff6b57; --amber:#f5b942; --green:#5fd08a;
+  --blur: blur(18px) saturate(150%);
 }
 html, body, .stApp, .stMarkdown, p, label, input, textarea, button, [data-baseweb] { font-family:'Figtree',system-ui,sans-serif; }
 span[data-testid="stIconMaterial"], .material-icons, [class*="material-symbols"] { font-family:'Material Symbols Rounded' !important; }
-.stApp { background: radial-gradient(1200px 500px at 85% -10%, rgba(139,156,255,.07), transparent 60%), var(--ash-1); }
-.block-container { padding-top: 4rem; max-width: 1400px; }
+
+/* Gradient mesh backdrop: the glass needs something colourful to blur */
+.stApp { background: var(--ash-1); }
+.stApp::before { content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(620px 520px at 8% 6%, rgba(122,140,255,.50), transparent 62%),
+    radial-gradient(560px 480px at 92% 14%, rgba(195,155,255,.36), transparent 62%),
+    radial-gradient(640px 560px at 78% 96%, rgba(255,107,87,.30), transparent 62%),
+    radial-gradient(520px 460px at 22% 88%, rgba(70,200,215,.26), transparent 62%); }
+[data-testid="stAppViewContainer"], [data-testid="stHeader"] { background:transparent; position:relative; z-index:1; }
+.block-container { padding-top:4rem; max-width:1400px; position:relative; z-index:1; }
+
 h1, h2, h3 { font-family:'Bricolage Grotesque','Figtree',sans-serif; letter-spacing:-0.02em; color:var(--ink); font-weight:700; }
-h1 { font-size:2.15rem !important; }
+h1 { font-size:2.15rem !important; background:linear-gradient(100deg,#fff 20%,var(--accent) 90%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
 [data-testid="stCaptionContainer"], .stCaption { color:var(--ink-2); }
-hr { border-color: var(--line) !important; }
+section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] { color:var(--ink-2); }
+hr { border-color: var(--glass-line) !important; }
+
+/* Shared glass surface */
+.zc-head, .zc-alert, .box, div[data-testid="stMetric"], [data-testid="stDataFrame"], [data-testid="stPlotlyChart"], [data-testid="stExpander"] {
+  background:linear-gradient(145deg,var(--glass-2),var(--glass)); backdrop-filter:var(--blur); -webkit-backdrop-filter:var(--blur);
+  border:1px solid var(--glass-line); border-radius:16px;
+  box-shadow: inset 0 1px 0 var(--glass-hi), 0 10px 30px rgba(0,0,0,.28); }
 
 /* Header */
-.zc-head { display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
-  padding:14px 20px; margin-bottom:18px; border:1px solid var(--line); border-radius:14px;
-  background:linear-gradient(135deg,var(--ash-3),var(--ash-2)); }
+.zc-head { display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; padding:14px 22px; margin-bottom:18px; }
 .zc-brand { display:flex; align-items:center; gap:14px; }
-.zc-mark { width:34px; height:34px; flex:none; }
+.zc-mark { width:34px; height:34px; flex:none; filter:drop-shadow(0 0 8px rgba(154,168,255,.55)); }
 .zc-brand b { font-family:'Bricolage Grotesque',sans-serif; font-size:1.25rem; letter-spacing:-0.01em; color:var(--ink); }
 .zc-brand span { color:var(--ink-2); font-size:.95rem; }
-.zc-tag { color:var(--accent); background:var(--accent-dim); border:1px solid rgba(139,156,255,.3);
-  padding:5px 12px; border-radius:999px; font-size:.78rem; font-weight:600; }
+.zc-tag { color:#fff; background:linear-gradient(120deg,rgba(154,168,255,.35),rgba(195,155,255,.28)); border:1px solid var(--glass-hi);
+  padding:5px 13px; border-radius:999px; font-size:.78rem; font-weight:600; backdrop-filter:blur(8px); }
 
 /* Alerts, notes */
-.zc-alert { border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:10px;
-  padding:12px 16px; margin-bottom:10px; background:var(--ash-2); color:var(--ink); }
-.tag { display:inline-block; padding:2px 10px; border-radius:6px; font-weight:700; font-size:12px; margin-right:6px; color:#14100a; }
-.HIGH, .RED { background:var(--red); }
-.WATCH, .AMBER { background:var(--amber); }
-.LOW, .GREEN { background:var(--green); }
-.box { border:1px solid var(--line); border-left:3px solid var(--accent); background:var(--ash-2);
-  padding:14px 18px; border-radius:10px; margin:12px 0; color:var(--ink-2); line-height:1.55; }
+.zc-alert { padding:13px 18px; margin-bottom:10px; color:var(--ink); }
+.tag { display:inline-block; padding:2px 10px; border-radius:999px; font-weight:700; font-size:12px; margin-right:6px; color:#14100a; box-shadow:0 0 14px rgba(255,255,255,.12); }
+.HIGH, .RED { background:linear-gradient(120deg,#ff8a6b,var(--red)); }
+.WATCH, .AMBER { background:linear-gradient(120deg,#ffd36b,var(--amber)); }
+.LOW, .GREEN { background:linear-gradient(120deg,#8be6aa,var(--green)); }
+.box { padding:15px 20px; margin:12px 0; color:var(--ink-2); line-height:1.55; }
 .box b { color:var(--ink); }
 
 /* Metrics */
-div[data-testid="stMetric"] { background:var(--ash-2); border:1px solid var(--line); border-radius:12px; padding:14px 16px; }
+div[data-testid="stMetric"] { padding:14px 12px 14px 16px; }
+div[data-testid="stMetricDelta"] { font-size:.8rem; }
+div[data-testid="stMetricDelta"] > div { white-space:normal; overflow:visible; text-overflow:clip; line-height:1.25; }
 div[data-testid="stMetricValue"] { font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:2rem; color:var(--ink); }
 div[data-testid="stMetricLabel"] p { color:var(--ink-2); }
 
 /* Sidebar */
-section[data-testid="stSidebar"] { background:var(--ash-0); border-right:1px solid var(--line); }
+section[data-testid="stSidebar"] { background:rgba(12,13,16,.55); backdrop-filter:blur(22px) saturate(140%); -webkit-backdrop-filter:blur(22px) saturate(140%); border-right:1px solid var(--glass-line); }
+section[data-testid="stSidebar"] > div { background:transparent; }
 section[data-testid="stSidebar"] * { color:var(--ink-2); }
 section[data-testid="stSidebar"] h2 { color:var(--ink); }
-section[data-testid="stSidebar"] [role="radiogroup"] { gap:2px; }
-section[data-testid="stSidebar"] [role="radiogroup"] label { padding:8px 12px; border-radius:8px; width:100%; transition:background .15s; }
-section[data-testid="stSidebar"] [role="radiogroup"] label:hover { background:var(--ash-3); }
-section[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) { background:var(--accent-dim); box-shadow:inset 3px 0 0 var(--accent); }
-section[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) * { color:var(--ink); font-weight:600; }
+section[data-testid="stSidebar"] [role="radiogroup"] { gap:3px; }
+section[data-testid="stSidebar"] [role="radiogroup"] label { padding:8px 12px; border-radius:11px; width:100%; border:1px solid transparent; transition:background .15s, border-color .15s; }
+section[data-testid="stSidebar"] [role="radiogroup"] label:hover { background:var(--glass); }
+section[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) { background:linear-gradient(120deg,rgba(154,168,255,.26),rgba(195,155,255,.14)); border-color:var(--glass-hi); box-shadow:inset 0 1px 0 var(--glass-hi); }
+section[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) * { color:#fff; font-weight:600; }
 
 /* Inputs & buttons */
-.stButton > button { border-radius:9px; border:1px solid var(--line); background:var(--ash-3); color:var(--ink); transition:border-color .15s, background .15s; }
-.stButton > button:hover { border-color:var(--accent); color:var(--accent); background:var(--ash-3); }
-.stButton > button[kind="primary"] { background:var(--accent); color:#0e0f14; border-color:var(--accent); font-weight:600; }
-.stButton > button[kind="primary"]:hover { background:#a3b0ff; color:#0e0f14; }
+.stButton > button { border-radius:11px; border:1px solid var(--glass-line); background:linear-gradient(145deg,var(--glass-2),var(--glass)); backdrop-filter:blur(10px); color:var(--ink); box-shadow:inset 0 1px 0 var(--glass-hi); transition:border-color .15s, transform .15s; }
+.stButton > button:hover { border-color:var(--accent); color:#fff; }
+.stButton > button:active { transform:translateY(1px); }
+.stButton > button[kind="primary"] { background:linear-gradient(120deg,#8091ff,#b48cff); color:#0c0d14; border-color:rgba(255,255,255,.35); font-weight:600; box-shadow:inset 0 1px 0 rgba(255,255,255,.45), 0 6px 20px rgba(128,145,255,.35); }
+.stButton > button[kind="primary"]:hover { color:#0c0d14; filter:brightness(1.08); }
 .stButton > button:focus-visible, input:focus-visible, textarea:focus-visible { outline:2px solid var(--accent) !important; outline-offset:2px; }
-[data-baseweb="select"] > div, [data-baseweb="input"] > div, textarea { background:var(--ash-2) !important; border-color:var(--line) !important; }
-[data-testid="stDataFrame"], [data-testid="stPlotlyChart"] { border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--ash-2); }
+[data-baseweb="select"] > div, [data-baseweb="input"] > div, textarea { background:rgba(255,255,255,.06) !important; border-color:var(--glass-line) !important; backdrop-filter:blur(8px); }
+[data-testid="stDataFrame"], [data-testid="stPlotlyChart"] { overflow:hidden; }
 [data-testid="stTabs"] button[aria-selected="true"] { color:var(--accent); }
-[data-testid="stExpander"] { border:1px solid var(--line); border-radius:12px; background:var(--ash-2); }
+[data-testid="stAlert"] { background:var(--glass); border:1px solid var(--glass-line); border-radius:14px; backdrop-filter:var(--blur); }
+@media (prefers-reduced-motion: reduce){ * { transition:none !important; } }
 </style>
 """, unsafe_allow_html=True)
 
 # ── Plotly styling helper ────────────────────────────────────────────
-ASH_SEQ = ["#8b9cff", "#ff6b57", "#f5b942", "#5fd08a", "#5cc8d7", "#c792ea", "#e7e5e0", "#74777e"]
+ASH_SEQ = ["#9aa8ff", "#ff6b57", "#f5b942", "#5fd08a", "#5cc8d7", "#c792ea", "#e7e5e0", "#74777e"]
 
 def fig_style(fig, height=360):
     fig.update_layout(
         template="plotly_dark",
         height=height,
-        paper_bgcolor="#1a1b1e",
-        plot_bgcolor="#1a1b1e",
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
         margin=dict(l=15, r=15, t=48, b=15),
         font=dict(family="Figtree, system-ui, sans-serif", size=12, color="#a9abb1"),
         title=dict(font=dict(family="Bricolage Grotesque, Figtree, sans-serif", size=15, color="#e7e5e0")),
         colorway=ASH_SEQ,
         legend=dict(orientation="h", y=-0.2),
     )
-    fig.update_xaxes(gridcolor="#2c2e33", linecolor="#2c2e33", zerolinecolor="#2c2e33")
-    fig.update_yaxes(gridcolor="#2c2e33", linecolor="#2c2e33", zerolinecolor="#2c2e33")
+    fig.update_xaxes(gridcolor="rgba(255,255,255,.08)", linecolor="rgba(255,255,255,.14)", zerolinecolor="rgba(255,255,255,.14)")
+    fig.update_yaxes(gridcolor="rgba(255,255,255,.08)", linecolor="rgba(255,255,255,.14)", zerolinecolor="rgba(255,255,255,.14)")
     return fig
 
 tag = lambda t: f'<span class="tag {t}">{t}</span>'
@@ -200,7 +221,7 @@ st.sidebar.markdown("---")
 st.sidebar.caption(f"**{len(m):,}** complaints · **{len(b):,}** batches")
 st.sidebar.caption(f"History: {m['complaint_date'].min():%b %Y} – {m['complaint_date'].max():%b %Y}")
 st.sidebar.caption(f"Taxonomy: {len(PRODUCTS)} products · {len(CATEGORIES)} categories")
-if st.sidebar.button("🔄 Retrain models now"):
+if st.sidebar.button("Retrain models now"):
     with st.spinner("Retraining NLP + XGBoost + alerts…"):
         pipeline.run_nlp()
         pipeline.run_models()
@@ -257,13 +278,13 @@ if page == "Command Centre":
     st.markdown("---")
 
     # Early-Warning Alerts
-    st.subheader("🚨 Early-Warning Alerts & Preventive Actions")
+    st.subheader("Early-Warning Alerts & Preventive Actions")
     active_alerts = alerts.build(m, preds, threshold=thr)
     if prod != "All":
         active_alerts = [a for a in active_alerts if (prod in a[1] or "Plant" in a[1])]
 
     if not active_alerts:
-        st.success(f"✅ All indicators normal. No pairs above {thr:.0%} 30-day risk threshold.")
+        st.success(f"All indicators normal. No pairs above {thr:.0%} 30-day risk threshold.")
     else:
         for idx, (lvl, entity, msg) in enumerate(active_alerts[:8]):
             ax, ay = st.columns([5.5, 1])
@@ -311,7 +332,7 @@ if page == "Command Centre":
         # Risk Heat-Map Matrix
         if not preds.empty and "p30" in preds.columns:
             pv = preds.pivot(index="product", columns="category", values="p30").reindex(index=PRODUCTS, columns=CATEGORIES).fillna(0)
-            fig_hm = px.imshow(pv, text_auto=".0%", color_continuous_scale=["#1f2024", "#f5b942", "#ff6b57"], aspect="auto", zmin=0, zmax=0.8, title="Risk Heat-Map · Next 30 Days P(complaint)")
+            fig_hm = px.imshow(pv, text_auto=".0%", color_continuous_scale=["#2b2d34", "#f5b942", "#ff6b57"], aspect="auto", zmin=0, zmax=0.8, title="Risk Heat-Map · Next 30 Days P(complaint)")
             st.plotly_chart(fig_style(fig_hm, 280), use_container_width=True)
 
     # Entity Risk League
@@ -369,7 +390,7 @@ elif page == "Classify & Log":
             st.subheader(f"Result: {r.category} · {r.subdefect}")
             conf_color = "red" if r.confidence < LOW_CONF else "green"
             st.markdown(f"Confidence: **{r.confidence:.0%}** — " + (
-                "⚠️ *Low confidence (<50%) — flagged for human review!*" if r.confidence < LOW_CONF else "✅ *High confidence auto-classified*"
+                "*Low confidence (<50%) — flagged for human review!*" if r.confidence < LOW_CONF else "*High confidence auto-classified*"
             ))
             fig_conf = px.bar(pr[::-1], orientation="h", color_discrete_sequence=["#8b9cff"], height=200)
             fig_conf.update_layout(xaxis_title="Probability", yaxis_title="", margin=dict(t=5, b=5, l=10, r=10))
@@ -379,7 +400,7 @@ elif page == "Classify & Log":
             ex_terms = nlp.explain(clf, curr_t)
             st.caption("Key words driving prediction: " + (", ".join(f"**{w}**" for w, _ in ex_terms) or "None"))
 
-            with st.expander("📚 Similar Past Complaints & Proven Actions"):
+            with st.expander("Similar Past Complaints & Proven Actions"):
                 sim_df = RC.similar_cases(m, curr_t, k=3)
                 st.dataframe(sim_df, use_container_width=True, hide_index=True)
 
@@ -387,7 +408,7 @@ elif page == "Classify & Log":
         st.markdown("---")
         cf_col1, cf_col2 = st.columns([2, 1])
         confirmed_cat = cf_col1.selectbox("Confirm or Override Category", CATEGORIES, index=CATEGORIES.index(r.category) if r.category in CATEGORIES else 0)
-        if cf_col2.button("💾 Log & Learn (Save, Retrain & Re-score)"):
+        if cf_col2.button("Log & Learn (Save, Retrain & Re-score)"):
             pipeline.ingest(pd.DataFrame([dict(
                 date=TODAY, product=st.session_state["active_cls_prod"],
                 customer=st.session_state["active_cls_cust"], text=curr_t,
@@ -403,7 +424,7 @@ elif page == "Classify & Log":
     with b_col1:
         st.subheader("Bulk Complaint Ingestion (CSV)")
         tpl = pd.DataFrame(dict(date=["2026-11-20"], product=["Product B"], customer=["Customer C"], text=["metal wire found in pouch"], batch=["B2611-L02"]))
-        st.download_button("📥 Download CSV Template", tpl.to_csv(index=False), "complaints_template.csv", "text/csv")
+        st.download_button("Download CSV Template", tpl.to_csv(index=False), "complaints_template.csv", "text/csv")
         up = st.file_uploader("Upload CSV (columns: date, product, customer, text, batch)", type="csv")
         if up and st.button("Classify & Append All Records"):
             d_upload = pd.read_csv(up)
@@ -508,7 +529,7 @@ elif page == "Patterns & Root Cause":
             lift_dim = st.radio("Entity Dimension", ["product", "customer", "line"], horizontal=True, format_func=lambda x: x.title())
             lift_df, ct_df = A.lift_matrix(m, lift_dim)
             if not lift_df.empty:
-                fig_lift = px.imshow(lift_df, text_auto=True, color_continuous_scale=["#1f2024", "#f5b942", "#ff6b57"], zmin=0, zmax=3.0, aspect="auto", title=f"Lift Matrix ({lift_dim.title()} × Category) — 1.0 = Average")
+                fig_lift = px.imshow(lift_df, text_auto=True, color_continuous_scale=["#2b2d34", "#f5b942", "#ff6b57"], zmin=0, zmax=3.0, aspect="auto", title=f"Lift Matrix ({lift_dim.title()} × Category) — 1.0 = Average")
                 st.plotly_chart(fig_style(fig_lift, 380), use_container_width=True)
 
         st.markdown("---")
@@ -593,7 +614,7 @@ elif page == "Risk & Prediction":
     col_h1, col_h2 = st.columns([1.3, 1])
     with col_h1:
         pv_risk = preds.pivot(index="product", columns="category", values=horizon).reindex(index=PRODUCTS, columns=CATEGORIES).fillna(0)
-        fig_rhm = px.imshow(pv_risk, text_auto=".0%", color_continuous_scale=["#1f2024", "#f5b942", "#ff6b57"], zmin=0, zmax=0.8, aspect="auto", title=f"Calibrated P(complaint) Heat-Map ({horizon})")
+        fig_rhm = px.imshow(pv_risk, text_auto=".0%", color_continuous_scale=["#2b2d34", "#f5b942", "#ff6b57"], zmin=0, zmax=0.8, aspect="auto", title=f"Calibrated P(complaint) Heat-Map ({horizon})")
         st.plotly_chart(fig_style(fig_rhm, 380), use_container_width=True)
 
     with col_h2:
@@ -633,7 +654,7 @@ elif page == "Risk & Prediction":
     st.markdown("---")
 
     # Pre-dispatch Batch Clearance Simulator
-    st.subheader("🧪 Interactive Pre-Dispatch Batch Risk Check")
+    st.subheader("Interactive Pre-Dispatch Batch Risk Check")
     st.caption("Simulate real-time sensor and process readings for a production lot to assess risk before shipping.")
 
     bp = st.selectbox("Product to Dispatch", PRODUCTS, key="dispatch_p")
@@ -724,7 +745,7 @@ elif page == "Preventive Recommendations & CAPA":
     ].head(20)
     st.dataframe(capa_tr, hide_index=True, use_container_width=True)
 
-    with st.expander("🔎 View Similar Historical Cases (Evidence)"):
+    with st.expander("View Similar Historical Cases (Evidence)"):
         st.dataframe(RC.similar_cases(m, f"{curr_pair['product']} {curr_pair.category} " + SUBS.get(curr_pair.category, [""])[0], k=5), hide_index=True, use_container_width=True)
 
 
@@ -832,9 +853,9 @@ elif page == "Data, SQL & Integration":
     pbi_xlsx = PBI_DIR / "ZeroC_AI_PowerBI_Model.xlsx"
     pbi_guide = PBI_DIR / "PowerBI_Guide.md"
     if pbi_xlsx.exists():
-        down_c1.download_button("📊 Download Power BI Excel Model", pbi_xlsx.read_bytes(), "ZeroC_AI_PowerBI_Model.xlsx")
+        down_c1.download_button("Download Power BI Excel Model", pbi_xlsx.read_bytes(), "ZeroC_AI_PowerBI_Model.xlsx")
     if pbi_guide.exists():
-        down_c2.download_button("📄 Download Power BI DAX & Build Guide", pbi_guide.read_bytes(), "PowerBI_Guide.md")
+        down_c2.download_button("Download Power BI DAX & Build Guide", pbi_guide.read_bytes(), "PowerBI_Guide.md")
 
     st.markdown("---")
 
